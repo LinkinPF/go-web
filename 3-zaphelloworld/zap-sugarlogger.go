@@ -52,3 +52,4 @@ func main() {
 	simpleHttpGet("www.google.com")
 	simpleHttpGet("http://www.google.com")
 }
+

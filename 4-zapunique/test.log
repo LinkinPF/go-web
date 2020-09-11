@@ -1,0 +1,12 @@
+1.599814544474088e+09	debug	Trying to hit GET request for www.google.com
+1.599814544474286e+09	error	Error fetching URL www.google.com : Error = Get www.google.com: unsupported protocol scheme ""
+1.5998145444743092e+09	debug	Trying to hit GET request for http://www.google.com
+1.599814545095092e+09	info	Success! statusCode = 200 OK for URL http://www.google.com
+2020-09-11T17:08:14.247+0800	debug	Trying to hit GET request for www.google.com
+2020-09-11T17:08:14.248+0800	error	Error fetching URL www.google.com : Error = Get www.google.com: unsupported protocol scheme ""
+2020-09-11T17:08:14.248+0800	debug	Trying to hit GET request for http://www.google.com
+2020-09-11T17:08:14.922+0800	info	Success! statusCode = 200 OK for URL http://www.google.com
+2020-09-11T17:22:29.591+0800	debug	4-zapunique/main.go:95	Trying to hit GET request for www.google.com
+2020-09-11T17:22:29.591+0800	error	4-zapunique/main.go:98	Error fetching URL www.google.com : Error = Get www.google.com: unsupported protocol scheme ""
+2020-09-11T17:22:29.592+0800	debug	4-zapunique/main.go:95	Trying to hit GET request for http://www.google.com
+2020-09-11T17:22:30.311+0800	info	4-zapunique/main.go:101	Success! statusCode = 200 OK for URL http://www.google.com
