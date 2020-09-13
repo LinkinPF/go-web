@@ -10,9 +10,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"github.com/natefinch/lumberjack"
 )
 
 var logger *zap.Logger
@@ -30,19 +30,19 @@ func InitLogger() {
 	sugarLogger = logger.Sugar()
 }
 
-func getEncoder() zapcore.Encoder{
+func getEncoder() zapcore.Encoder {
 	encoderConfig := zapcore.EncoderConfig{
-		MessageKey:       "msg",
-		LevelKey:         "level",
-		TimeKey:          "ts",
-		NameKey:          "logger",
-		CallerKey:        "caller",
-		StacktraceKey:    "stacktrace",
-		LineEnding:       zapcore.DefaultLineEnding,
-		EncodeLevel:      zapcore.LowercaseLevelEncoder,
-		EncodeTime:       zapcore.ISO8601TimeEncoder,			// 这里改用人类可以识别的时间格式
-		EncodeDuration:   zapcore.SecondsDurationEncoder,
-		EncodeCaller:     zapcore.ShortCallerEncoder,
+		MessageKey:     "msg",
+		LevelKey:       "level",
+		TimeKey:        "ts",
+		NameKey:        "logger",
+		CallerKey:      "caller",
+		StacktraceKey:  "stacktrace",
+		LineEnding:     zapcore.DefaultLineEnding,
+		EncodeLevel:    zapcore.LowercaseLevelEncoder,
+		EncodeTime:     zapcore.ISO8601TimeEncoder, // 这里改用人类可以识别的时间格式
+		EncodeDuration: zapcore.SecondsDurationEncoder,
+		EncodeCaller:   zapcore.ShortCallerEncoder,
 	}
 	// 像普通的console的形式来打印日志格式, 还是保存在文件中的
 	return zapcore.NewConsoleEncoder(encoderConfig)
@@ -50,11 +50,11 @@ func getEncoder() zapcore.Encoder{
 
 func getLogWriter() zapcore.WriteSyncer {
 	lumberJackLogger := &lumberjack.Logger{
-		Filename : "./test.log",
-		MaxSize : 10,				// Mb
-		MaxBackups : 5,
-		MaxAge : 30,				// days
-		Compress : false,
+		Filename:   "./test.log",
+		MaxSize:    10, // Mb
+		MaxBackups: 5,
+		MaxAge:     30, // days
+		Compress:   false,
 	}
 	return zapcore.AddSync(lumberJackLogger)
 }
@@ -79,7 +79,6 @@ func GinLogger(logger *zap.Logger) gin.HandlerFunc {
 		)
 	}
 }
-
 
 // GinRecovery recover掉项目可能出现的panic
 func GinRecovery(logger *zap.Logger, stack bool) gin.HandlerFunc {
@@ -152,9 +151,9 @@ func main() {
 	InitLogger()
 	defer logger.Sync()
 	r := gin.New()
-	r.Use(GinLogger(logger), GinRecovery(logger,true))
+	r.Use(GinLogger(logger), GinRecovery(logger, true))
 	r.GET("/hello", func(c *gin.Context) {
-		c.String(http.StatusOK,"zcy")
+		c.String(http.StatusOK, "zcy")
 	})
 	r.Run()
 }
