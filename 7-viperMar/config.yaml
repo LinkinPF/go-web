@@ -1,0 +1,6 @@
+mysql:
+  dbname: sql_demo
+  host: 127.0.0.1
+  port: 13306
+port: 8001
+version: v0.0.2

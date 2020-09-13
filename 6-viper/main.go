@@ -149,6 +149,56 @@ func main() {
 	/*
 		从远程 key/value 中去读取配置，这个暂时也用不到，先放下
 	*/
+
+
+	/*
+		开始从配置文件中读取配置的值，viper 提供了如下的方法：
+
+		Get(key string) : interface{}
+		GetBool(key string) : bool
+		GetFloat64(key string) : float64
+		GetInt(key string) : int
+		GetIntSlice(key string) : []int
+		GetString(key string) : string
+		GetStringMap(key string) : map[string]interface{}
+		GetStringMapString(key string) : map[string]string
+		GetStringSlice(key string) : []string
+		GetTime(key string) : time.Time
+		GetDuration(key string) : time.Duration
+		IsSet(key string) : bool
+		AllSettings() : map[string]interface{}
+
+		需要认识到的一件重要事情是，每一个Get方法在找不到值的时候都会返回零值。
+		为了检查给定的键是否存在，提供了IsSet()方法。
+	*/
+	viper.GetString("port")
+	if viper.GetBool("verbose") {
+		fmt.Println("verbose enabled")
+	}
+
+	// 也可以访问嵌套的键
+	/*
+		对于下面的JSON文件：
+		{
+			"host": {
+				"address": "localhost",
+				"port": 5799
+			},
+			"datastore": {
+				"metric": {
+					"host": "127.0.0.1",
+						"port": 3099
+				},
+				"warehouse": {
+					"host": "198.0.0.1",
+						"port": 2112
+				}
+			}
+		}
+	*/
+	// viper 可以通过传入 . 分隔的路径来访问嵌套的配置文件
+	viper.GetString("datastore.metric.host")		// 返回 "127.0.0.1"
+
 }
 
 
