@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"github.com/spf13/viper"
+	"go-web/10-arch/settings"
 	"go.uber.org/zap"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -11,13 +12,13 @@ import (
 
 var db *sqlx.DB
 
-func Init() (err error) {
+func Init(cfg *settings.MySQLConfig) (err error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True",
-		viper.GetString("mysql.user"),
-		viper.GetString("mysql.password"),
-		viper.GetString("mysql.host"),
-		viper.GetString("mysql.port"),
-		viper.GetString("mysql.dbname"),
+		cfg.User,
+		cfg.Password,
+		cfg.Host,
+		cfg.Port,
+		cfg.Dbname,
 	)
 
 	// 如果用MustConnect, 那么连接不成功直接就panic了,不带Must那么就会返回一个错误，然后自己处理

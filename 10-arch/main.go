@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/spf13/viper"
 	"go-web/10-arch/dao/mysql"
 	"go-web/10-arch/logger"
 	"go-web/10-arch/routes"
@@ -24,12 +23,12 @@ func main() {
 		fmt.Println("Init settings failed, err:",err)
 	}
 	// 2、初始化日志
-	if err := logger.Init(); err != nil {
+	if err := logger.Init(settings.Conf.LogConfig); err != nil {
 		fmt.Println("Init logger failed, err:",err)
 	}
 	defer zap.L().Sync()
 	// 3、初始化mysql
-	if err := mysql.Init(); err != nil {
+	if err := mysql.Init(settings.Conf.MySQLConfig); err != nil {
 		fmt.Println("Init logger failed, err:",err)
 	}
 	defer mysql.Close()
@@ -41,7 +40,7 @@ func main() {
 
 	// 6、启动服务（优雅关机）
 	srv := &http.Server{
-		Addr:              fmt.Sprintf(":%d", viper.GetInt("app.port")),
+		Addr:              fmt.Sprintf(":%d", settings.Conf.Port),
 		Handler:           r,
 	}
 
