@@ -47,7 +47,7 @@ func main() {
 	go func() {
 		// 开启一个 goroutine 启动服务
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed{
-			zap.L().Error("listen faied :", zap.Error(err))
+			zap.L().Error("listen failed :", zap.Error(err))
 		}
 	}()
 
